@@ -1,0 +1,30 @@
+from PIL import Image
+import cv2
+from pywebio import start_server, input
+
+# This func is called whenever the 'Select an image' button is clicked
+def select_image():
+    # open a file chooser dialog and allow the user to select an input image
+    path = input.file('Select an image', accept='.jpg')
+    return path
+
+# This func is called whenever a radio button is clicked
+def currency_type():
+    option = input.radio('Select currency type:', options=[('500', 500), ('2000', 2000)])
+    return option
+
+# Main function
+def main():
+    path = select_image()
+    if path:
+        image = cv2.imread(path)
+        # Your image processing code here...
+
+    option = currency_type()
+    if option:
+        print(path)
+        print(option)
+        # Your further processing code here...
+
+if __name__ == '__main__':
+    start_server(main, port=8080)
